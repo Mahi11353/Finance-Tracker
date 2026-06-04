@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Dashboard — Spendly{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
 {% block content %}
 <section class="dash-page">
     <div class="dash-inner">
@@ -12,6 +16,36 @@
                 <h1 class="dash-name">{{ user.name }}</h1>
                 <p class="dash-meta">{{ user.email }} &middot; Member since {{ user.member_since }}</p>
             </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="dash-filter-bar">
+            <div class="dash-filter-presets">
+                <a href="{{ url_for('profile', date_from=presets.this_month, date_to=presets.today) }}"
+                   class="dash-filter-preset{% if date_from == presets.this_month and date_to == presets.today %} dash-filter-preset--active{% endif %}">
+                    This Month
+                </a>
+                <a href="{{ url_for('profile', date_from=presets.last_3m, date_to=presets.today) }}"
+                   class="dash-filter-preset{% if date_from == presets.last_3m and date_to == presets.today %} dash-filter-preset--active{% endif %}">
+                    Last 3 Months
+                </a>
+                <a href="{{ url_for('profile', date_from=presets.last_6m, date_to=presets.today) }}"
+                   class="dash-filter-preset{% if date_from == presets.last_6m and date_to == presets.today %} dash-filter-preset--active{% endif %}">
+                    Last 6 Months
+                </a>
+                <a href="{{ url_for('profile') }}"
+                   class="dash-filter-preset{% if not date_from and not date_to %} dash-filter-preset--active{% endif %}">
+                    All Time
+                </a>
+            </div>
+            <form class="dash-filter-form" method="GET" action="{{ url_for('profile') }}">
+                <input class="form-input dash-filter-input" type="date" name="date_from"
+                       value="{{ date_from or '' }}">
+                <span class="dash-filter-sep">to</span>
+                <input class="form-input dash-filter-input" type="date" name="date_to"
+                       value="{{ date_to or '' }}">
+                <button type="submit" class="btn-primary dash-filter-apply">Apply</button>
+            </form>
         </div>
 
         <!-- Stats row -->

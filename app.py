@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+import os
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import check_password_hash
+from datetime import datetime, date as _date
 from database.db import get_db, init_db, seed_db, get_user_by_email, get_user_by_id, create_user
 from database.queries import (
     get_user_by_id as get_profile_user,
@@ -94,6 +96,19 @@ def logout():
     return redirect(url_for("landing"))
 
 
+def _parse_date(s):
+    try:
+        return datetime.strptime(s, "%Y-%m-%d").date() if s else None
+    except ValueError:
+        return None
+
+
+def _month_offset(today, months):
+    """Return the first day of the month `months` before today's month."""
+    total = today.year * 12 + (today.month - 1) - months
+    return _date(total // 12, total % 12 + 1, 1)
+
+
 @app.route("/profile")
 def profile():
     if not session.get("user_id"):
@@ -106,15 +121,36 @@ def profile():
     initials = (words[0][0] + words[-1][0]).upper() if len(words) > 1 else words[0][0].upper()
     user = {**user_data, "initials": initials}
 
-    stats              = get_summary_stats(user_id)
-    expenses           = get_recent_transactions(user_id)
-    category_breakdown = get_category_breakdown(user_id)
+    date_from = _parse_date(request.args.get("date_from"))
+    date_to   = _parse_date(request.args.get("date_to"))
+
+    if date_from and date_to and date_from > date_to:
+        flash("Start date must be before end date.")
+        date_from = date_to = None
+
+    date_from = date_from.isoformat() if date_from else None
+    date_to   = date_to.isoformat()   if date_to   else None
+
+    today = _date.today()
+    presets = {
+        "this_month": today.replace(day=1).isoformat(),
+        "last_3m":    _month_offset(today, 3).isoformat(),
+        "last_6m":    _month_offset(today, 6).isoformat(),
+        "today":      today.isoformat(),
+    }
+
+    stats              = get_summary_stats(user_id, date_from, date_to)
+    expenses           = get_recent_transactions(user_id, date_from=date_from, date_to=date_to)
+    category_breakdown = get_category_breakdown(user_id, date_from, date_to)
 
     return render_template("profile.html",
                            user=user,
                            stats=stats,
                            expenses=expenses,
-                           category_breakdown=category_breakdown)
+                           category_breakdown=category_breakdown,
+                           date_from=date_from,
+                           date_to=date_to,
+                           presets=presets)
 
 
 @app.route("/expenses/add")
@@ -133,4 +169,5 @@ def delete_expense(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug, port=5001)

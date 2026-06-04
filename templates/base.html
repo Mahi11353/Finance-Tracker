@@ -30,6 +30,15 @@
     </nav>
 
     <main class="main-content">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for msg in messages %}
+                <p class="flash-msg flash-msg--error">{{ msg }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </main>
 
