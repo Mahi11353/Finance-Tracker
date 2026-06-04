@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Spendly{% endblock %}
+
+{% block content %}
+<section class="dash-page">
+    <div class="dash-inner">
+
+        <!-- Greeting -->
+        <div class="dash-greeting">
+            <div class="dash-avatar">{{ user.initials }}</div>
+            <div>
+                <h1 class="dash-name">{{ user.name }}</h1>
+                <p class="dash-meta">{{ user.email }} &middot; Member since {{ user.member_since }}</p>
+            </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="dash-stats-row">
+            <div class="dash-stat">
+                <span class="dash-stat-label">Total Spent</span>
+                <span class="dash-stat-value">{{ stats.total_spent }}</span>
+            </div>
+            <div class="dash-stat">
+                <span class="dash-stat-label">Transactions</span>
+                <span class="dash-stat-value">{{ stats.transaction_count }}</span>
+            </div>
+            <div class="dash-stat">
+                <span class="dash-stat-label">Top Category</span>
+                <span class="dash-stat-value">{{ stats.top_category }}</span>
+            </div>
+        </div>
+
+        <!-- Main two-column grid -->
+        <div class="dash-grid">
+
+            <!-- Transactions panel -->
+            <div class="dash-panel">
+                <h2 class="dash-panel-title">Recent Transactions</h2>
+                <div class="dash-table-wrap">
+                    <table class="dash-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th class="dash-col-amount">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for expense in expenses %}
+                            <tr>
+                                <td class="dash-col-date">{{ expense.date }}</td>
+                                <td class="dash-col-desc">{{ expense.description }}</td>
+                                <td>
+                                    <span class="cat-badge cat-badge--{{ expense.category | lower }}">
+                                        {{ expense.category }}
+                                    </span>
+                                </td>
+                                <td class="dash-col-amount">{{ expense.amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Category breakdown panel -->
+            <div class="dash-panel">
+                <h2 class="dash-panel-title">By Category</h2>
+                <ul class="dash-cats">
+                    {% for cat in category_breakdown %}
+                    <li class="dash-cat-row">
+                        <div class="dash-cat-header">
+                            <span class="dash-cat-name">{{ cat.name }}</span>
+                            <span class="dash-cat-total">{{ cat.total }}</span>
+                        </div>
+                        <div class="dash-bar-track">
+                            <div class="dash-bar dash-bar--{{ cat.name | lower }}" style="--bar-w: {{ cat.pct }}%"></div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
