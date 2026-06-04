@@ -1,0 +1,88 @@
+/* Filter bar */
+
+.dash-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.dash-filter-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.dash-filter-preset {
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.dash-filter-preset:hover {
+    background: var(--paper-warm);
+    border-color: var(--border-soft);
+    color: var(--ink);
+}
+
+.dash-filter-preset--active {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+}
+
+.dash-filter-preset--active:hover {
+    background: var(--accent);
+    color: var(--paper);
+}
+
+.dash-filter-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.dash-filter-input {
+    width: 9.5rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.875rem;
+}
+
+.dash-filter-sep {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+}
+
+.dash-filter-apply {
+    padding: 0.35rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Flash messages */
+
+.flash-messages {
+    max-width: var(--max-width);
+    margin: 0.75rem auto 0;
+    padding: 0 2rem;
+}
+
+.flash-msg {
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.flash-msg--error {
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
