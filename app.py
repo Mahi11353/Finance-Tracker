@@ -90,7 +90,48 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    user = {
+        "name":         "Demo User",
+        "email":        "demo@spendly.com",
+        "member_since": "Jun 2026",
+        "initials":     "DU",
+    }
+
+    stats = {
+        "total_spent":       "₹319.99",
+        "transaction_count": 8,
+        "top_category":      "Food",
+    }
+
+    expenses = [
+        {"date": "Jun 1, 2026",  "description": "Grocery run",            "category": "Food",          "amount": "₹45.50"},
+        {"date": "Jun 2, 2026",  "description": "Bus pass top-up",        "category": "Transport",     "amount": "₹12.00"},
+        {"date": "Jun 3, 2026",  "description": "Electricity bill",       "category": "Bills",         "amount": "₹120.00"},
+        {"date": "Jun 5, 2026",  "description": "Pharmacy",               "category": "Health",        "amount": "₹30.00"},
+        {"date": "Jun 7, 2026",  "description": "Streaming subscription", "category": "Entertainment", "amount": "₹18.99"},
+        {"date": "Jun 10, 2026", "description": "New shoes",              "category": "Shopping",      "amount": "₹65.00"},
+        {"date": "Jun 12, 2026", "description": "Coffee and snacks",      "category": "Food",          "amount": "₹8.50"},
+        {"date": "Jun 15, 2026", "description": "Miscellaneous",          "category": "Other",         "amount": "₹20.00"},
+    ]
+
+    category_breakdown = [
+        {"name": "Bills",         "total": "₹120.00", "pct": 38},
+        {"name": "Shopping",      "total": "₹65.00",  "pct": 20},
+        {"name": "Food",          "total": "₹54.00",  "pct": 17},
+        {"name": "Health",        "total": "₹30.00",  "pct": 9},
+        {"name": "Other",         "total": "₹20.00",  "pct": 6},
+        {"name": "Entertainment", "total": "₹18.99",  "pct": 6},
+        {"name": "Transport",     "total": "₹12.00",  "pct": 4},
+    ]
+
+    return render_template("profile.html",
+                           user=user,
+                           stats=stats,
+                           expenses=expenses,
+                           category_breakdown=category_breakdown)
 
 
 @app.route("/expenses/add")
