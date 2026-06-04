@@ -1,7 +1,7 @@
 # Spec: Registration
 
 ## Overview
-Implement the user registration flow for Spendly. This step wires up the existing `register.html` template to a working `POST /register` handler that validates input, checks for duplicate emails, hashes the password, and inserts the new user into the database. After a successful registration the user is redirected to the login page. This is the first step that writes user data and establishes the `secret_key` needed for session management in later steps.
+Implement the user registration flow for Spendly. This step wires up the existing `register.html` template to a working `POST /register` handler that validates input, checks for duplicate emails, hashes the password, and inserts the new user into the database. After a successful registration the user is shown with a success message and then redirected to the login page. This is the first step that writes user data and establishes the `secret_key` needed for session management in later steps.
 
 ## Depends on
 - Step 01 — Database Setup (users table and `get_db()` must exist)
