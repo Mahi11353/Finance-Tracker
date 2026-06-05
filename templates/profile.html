@@ -69,7 +69,10 @@
 
             <!-- Transactions panel -->
             <div class="dash-panel">
-                <h2 class="dash-panel-title">Recent Transactions</h2>
+                <div class="dash-panel-header">
+                    <h2 class="dash-panel-title">Recent Transactions</h2>
+                    <a href="{{ url_for('add_expense') }}" class="btn-primary">+ Add Expense</a>
+                </div>
                 <div class="dash-table-wrap">
                     <table class="dash-table">
                         <thead>
@@ -84,7 +87,7 @@
                             {% for expense in expenses %}
                             <tr>
                                 <td class="dash-col-date">{{ expense.date }}</td>
-                                <td class="dash-col-desc">{{ expense.description }}</td>
+                                <td class="dash-col-desc">{{ expense.description or '' }}</td>
                                 <td>
                                     <span class="cat-badge cat-badge--{{ expense.category | lower }}">
                                         {{ expense.category }}

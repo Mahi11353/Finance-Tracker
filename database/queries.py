@@ -1,6 +1,8 @@
 from database.db import get_db
 from datetime import datetime
 
+CATEGORIES = ["Food", "Transport", "Bills", "Health", "Entertainment", "Shopping", "Other"]
+
 
 def _date_filter(date_from, date_to):
     if date_from and date_to:
@@ -101,3 +103,14 @@ def get_category_breakdown(user_id, date_from=None, date_to=None):
             "pct": pct,
         })
     return result
+
+
+def insert_expense(user_id, amount, category, date, description):
+    conn = get_db()
+    conn.execute(
+        "INSERT INTO expenses (user_id, amount, category, date, description)"
+        " VALUES (?, ?, ?, ?, ?)",
+        (user_id, amount, category, date, description),
+    )
+    conn.commit()
+    conn.close()
