@@ -13,6 +13,7 @@
                 <div class="auth-error">{{ error }}</div>
             {% endif %}
             <form method="POST" action="{{ url_for('add_expense') }}">
+                <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
                 <div class="form-group">
                     <label for="amount">Amount (₹)</label>
                     <input class="form-input" type="number" id="amount" name="amount"
