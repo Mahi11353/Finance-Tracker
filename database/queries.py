@@ -27,7 +27,7 @@ def get_user_by_id(user_id):
 def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
     date_clause, extra = _date_filter(date_from, date_to)
     sql = (
-        "SELECT date, description, category, amount FROM expenses"
+        "SELECT id, date, description, category, amount FROM expenses"
         " WHERE user_id = ?"
         + date_clause
         + " ORDER BY date DESC, id DESC LIMIT ?"
@@ -39,6 +39,7 @@ def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
     for row in rows:
         dt = datetime.strptime(row["date"], "%Y-%m-%d")
         result.append({
+            "id": row["id"],
             "date": f"{dt.strftime('%b')} {dt.day}, {dt.year}",
             "description": row["description"],
             "category": row["category"],
@@ -103,6 +104,27 @@ def get_category_breakdown(user_id, date_from=None, date_to=None):
             "pct": pct,
         })
     return result
+
+
+def get_expense_by_id(expense_id, user_id):
+    conn = get_db()
+    row = conn.execute(
+        "SELECT * FROM expenses WHERE id = ? AND user_id = ?",
+        (expense_id, user_id),
+    ).fetchone()
+    conn.close()
+    return row
+
+
+def update_expense(expense_id, user_id, amount, category, date, description):
+    conn = get_db()
+    conn.execute(
+        "UPDATE expenses SET amount=?, category=?, date=?, description=?"
+        " WHERE id=? AND user_id=?",
+        (amount, category, date, description, expense_id, user_id),
+    )
+    conn.commit()
+    conn.close()
 
 
 def insert_expense(user_id, amount, category, date, description):
