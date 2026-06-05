@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 from werkzeug.security import check_password_hash
 from datetime import datetime, date as _date
 from database.db import get_db, init_db, seed_db, get_user_by_email, get_user_by_id, create_user
@@ -9,6 +9,8 @@ from database.queries import (
     get_recent_transactions,
     get_category_breakdown,
     insert_expense,
+    get_expense_by_id,
+    update_expense,
     CATEGORIES,
 )
 
@@ -209,9 +211,62 @@ def add_expense():
     return redirect(url_for("profile"))
 
 
-@app.route("/expenses/<int:id>/edit")
+@app.route("/expenses/<int:id>/edit", methods=["GET", "POST"])
 def edit_expense(id):
-    return "Edit expense — coming in Step 8"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+    expense = get_expense_by_id(id, user_id)
+    if expense is None:
+        abort(404)
+
+    if request.method == "GET":
+        return render_template("edit_expense.html",
+                               expense=expense,
+                               categories=CATEGORIES)
+
+    raw_amount  = request.form.get("amount", "").strip()
+    category    = request.form.get("category", "")
+    raw_date    = request.form.get("date", "").strip()
+    description = request.form.get("description", "").strip() or None
+
+    error = None
+    amount = None
+    if not raw_amount:
+        error = "Amount is required."
+    else:
+        try:
+            amount = round(float(raw_amount), 2)
+            if amount <= 0:
+                error = "Amount must be greater than zero."
+            elif amount > 1_000_000:
+                error = "Amount must be ₹10,00,000 or less."
+        except ValueError:
+            error = "Amount must be a number."
+
+    if not error and category not in CATEGORIES:
+        error = "Please select a valid category."
+
+    if not error and description and len(description) > 200:
+        error = "Description must be 200 characters or fewer."
+
+    parsed_date = None
+    if not error:
+        try:
+            parsed_date = datetime.strptime(raw_date, "%Y-%m-%d").date()
+        except ValueError:
+            error = "Please enter a valid date."
+
+    if error:
+        return render_template("edit_expense.html",
+                               expense=expense,
+                               categories=CATEGORIES,
+                               error=error,
+                               form=request.form)
+
+    update_expense(id, user_id, amount, category, parsed_date.isoformat(), description)
+    return redirect(url_for("profile"))
 
 
 @app.route("/expenses/<int:id>/delete")
