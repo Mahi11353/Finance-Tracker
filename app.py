@@ -8,6 +8,8 @@ from database.queries import (
     get_summary_stats,
     get_recent_transactions,
     get_category_breakdown,
+    insert_expense,
+    CATEGORIES,
 )
 
 app = Flask(__name__)
@@ -153,9 +155,58 @@ def profile():
                            presets=presets)
 
 
-@app.route("/expenses/add")
+@app.route("/expenses/add", methods=["GET", "POST"])
 def add_expense():
-    return "Add expense — coming in Step 7"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    if request.method == "GET":
+        return render_template("add_expense.html",
+                               categories=CATEGORIES,
+                               today=_date.today().isoformat())
+
+    user_id = session["user_id"]
+    raw_amount = request.form.get("amount", "").strip()
+    category = request.form.get("category", "")
+    raw_date = request.form.get("date", "").strip()
+    description = request.form.get("description", "").strip() or None
+
+    error = None
+    amount = None
+    if not raw_amount:
+        error = "Amount is required."
+    else:
+        try:
+            amount = round(float(raw_amount), 2)
+            if amount <= 0:
+                error = "Amount must be greater than zero."
+            elif amount > 1_000_000:
+                error = "Amount must be ₹10,00,000 or less."
+        except ValueError:
+            error = "Amount must be a number."
+
+    if not error and category not in CATEGORIES:
+        error = "Please select a valid category."
+
+    if not error and description and len(description) > 200:
+        error = "Description must be 200 characters or fewer."
+
+    parsed_date = None
+    if not error:
+        try:
+            parsed_date = datetime.strptime(raw_date, "%Y-%m-%d").date()
+        except ValueError:
+            error = "Please enter a valid date."
+
+    if error:
+        return render_template("add_expense.html",
+                               categories=CATEGORIES,
+                               today=_date.today().isoformat(),
+                               error=error,
+                               form=request.form)
+
+    insert_expense(user_id, amount, category, parsed_date.isoformat(), description)
+    return redirect(url_for("profile"))
 
 
 @app.route("/expenses/<int:id>/edit")
