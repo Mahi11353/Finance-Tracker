@@ -13,6 +13,8 @@ from database.queries import (
     get_expense_by_id,
     update_expense,
     delete_expense as delete_expense_query,
+    set_balance,
+    adjust_balance,
     CATEGORIES,
 )
 
@@ -222,6 +224,7 @@ def add_expense():
                                form=request.form)
 
     insert_expense(user_id, amount, category, parsed_date.isoformat(), description)
+    adjust_balance(user_id, -amount)
     return redirect(url_for("profile"))
 
 
@@ -282,7 +285,9 @@ def edit_expense(id):
                                error=error,
                                form=request.form)
 
+    old_amount = expense["amount"]
     update_expense(id, user_id, amount, category, parsed_date.isoformat(), description)
+    adjust_balance(user_id, old_amount - amount)
     return redirect(url_for("profile"))
 
 
@@ -297,6 +302,26 @@ def delete_expense(id):
     if expense is None:
         abort(404)
     delete_expense_query(id, user_id)
+    adjust_balance(user_id, expense["amount"])
+    return redirect(url_for("profile"))
+
+
+@app.route("/balance/update", methods=["POST"])
+def update_balance():
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+    if request.form.get("csrf_token") != session.get("csrf_token"):
+        abort(403)
+
+    user_id = session["user_id"]
+    raw = request.form.get("balance", "").strip()
+    try:
+        amount = round(float(raw), 2)
+    except ValueError:
+        flash("Balance must be a valid number.")
+        return redirect(url_for("profile"))
+
+    set_balance(user_id, amount)
     return redirect(url_for("profile"))
 
 

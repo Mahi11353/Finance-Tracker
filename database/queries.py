@@ -10,6 +10,12 @@ def _date_filter(date_from, date_to):
     return "", []
 
 
+def _format_balance(amount):
+    if amount < 0:
+        return f"-₹{abs(amount):,.2f}"
+    return f"₹{amount:,.2f}"
+
+
 def get_user_by_id(user_id):
     conn = get_db()
     row = conn.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
@@ -17,11 +23,29 @@ def get_user_by_id(user_id):
     if not row:
         return None
     dt = datetime.strptime(row["created_at"][:10], "%Y-%m-%d")
+    balance = row["balance"]
     return {
         "name": row["name"],
         "email": row["email"],
         "member_since": dt.strftime("%B %Y"),
+        "balance": balance,
+        "balance_display": _format_balance(balance),
+        "balance_negative": balance < 0,
     }
+
+
+def set_balance(user_id, amount):
+    conn = get_db()
+    conn.execute("UPDATE users SET balance = ? WHERE id = ?", (amount, user_id))
+    conn.commit()
+    conn.close()
+
+
+def adjust_balance(user_id, delta):
+    conn = get_db()
+    conn.execute("UPDATE users SET balance = balance + ? WHERE id = ?", (delta, user_id))
+    conn.commit()
+    conn.close()
 
 
 def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
