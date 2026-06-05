@@ -18,6 +18,21 @@
             </div>
         </div>
 
+        <!-- Balance card -->
+        <div class="balance-card{% if user.balance_negative %} balance-card--negative{% endif %}">
+            <div class="balance-info">
+                <span class="balance-label">Current Balance</span>
+                <span class="balance-value">{{ user.balance_display }}</span>
+            </div>
+            <form class="balance-form" method="POST" action="{{ url_for('update_balance') }}">
+                <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+                <input class="form-input balance-input" type="number" name="balance"
+                       step="0.01" placeholder="Enter new balance"
+                       value="{{ user.balance }}" required>
+                <button type="submit" class="btn-primary balance-btn">Update Balance</button>
+            </form>
+        </div>
+
         <!-- Filter bar -->
         <div class="dash-filter-bar">
             <div class="dash-filter-presets">

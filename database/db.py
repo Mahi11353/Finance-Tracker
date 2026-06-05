@@ -20,9 +20,15 @@ def init_db():
             name          TEXT    NOT NULL,
             email         TEXT    UNIQUE NOT NULL,
             password_hash TEXT    NOT NULL,
+            balance       REAL    NOT NULL DEFAULT 0,
             created_at    TEXT    DEFAULT (datetime('now'))
         )
     """)
+    try:
+        conn.execute("ALTER TABLE users ADD COLUMN balance REAL NOT NULL DEFAULT 0")
+        conn.commit()
+    except Exception:
+        pass  # column already exists
     conn.execute("""
         CREATE TABLE IF NOT EXISTS expenses (
             id          INTEGER PRIMARY KEY AUTOINCREMENT,
