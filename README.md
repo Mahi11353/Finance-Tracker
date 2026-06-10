@@ -14,19 +14,6 @@ Spendora is a full-stack personal finance web application built with Flask and S
 This project was built incrementally using a spec-driven, AI-assisted workflow with Claude Code, following feature-branch development practices throughout.
 
 ---
-
-## 📸 Screenshots
-
-| Landing Page | Dashboard |
-|---|---|
-| *(screenshot placeholder — `docs/screenshots/landing.png`)* | *(screenshot placeholder — `docs/screenshots/dashboard.png`)* |
-
-| Add Expense Form | Category Breakdown |
-|---|---|
-| *(screenshot placeholder — `docs/screenshots/add-expense.png`)* | *(screenshot placeholder — `docs/screenshots/categories.png`)* |
-
----
-
 ## ✨ Features
 
 - **User registration and login** — email + password accounts with secure Werkzeug hashing
@@ -130,7 +117,7 @@ Browser Request
 
 ---
 
-## ⚙️ Installation Guide
+##  Installation Guide
 
 ### Prerequisites
 
@@ -175,7 +162,7 @@ Open your browser at **http://127.0.0.1:5001**
 
 ---
 
-## 🌱 Environment Setup
+##  Environment Setup
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -205,7 +192,7 @@ pip list | grep Flask   # should show Flask 3.1.3
 
 ---
 
-## 🗄️ Database Setup
+##  Database Setup
 
 Spendora uses **SQLite** — a file-based, serverless database. No external database server is needed.
 
@@ -261,7 +248,7 @@ python app.py
 
 ---
 
-## 🔐 Authentication Flow
+##  Authentication Flow
 
 ### Registration (`POST /register`)
 
@@ -304,7 +291,7 @@ Werkzeug uses **PBKDF2-HMAC-SHA256** with a random salt by default. Plaintext pa
 
 ---
 
-## 🔒 Security Practices
+##  Security Practices
 
 | Practice | Implementation |
 |---|---|
@@ -320,7 +307,7 @@ Werkzeug uses **PBKDF2-HMAC-SHA256** with a random salt by default. Plaintext pa
 
 ---
 
-## 🔀 Git Workflow
+##  Git Workflow
 
 This project follows a **feature-branch workflow**:
 
@@ -339,7 +326,7 @@ Each feature branch corresponds to one spec file in `.claude/specs/`. The branch
 
 ---
 
-## 🤖 Claude AI Workflow
+##  Claude AI Workflow
 
 Spendora was built using **Claude Code** as the primary development assistant, following a spec-driven, agentic workflow.
 
@@ -378,7 +365,7 @@ All agent definitions live in `.claude/agents/`.
 
 ---
 
-## 🚀 Deployment Guide
+##  Deployment Guide
 
 ### Render / Railway (recommended for beginners)
 
@@ -414,7 +401,7 @@ gunicorn -w 2 -b 0.0.0.0:8000 app:app
 
 ---
 
-## 🧪 Running Tests
+##  Running Tests
 
 ```bash
 # Run all tests
@@ -430,27 +417,7 @@ pytest -v
 Tests use `pytest-flask` for route testing and a dedicated in-memory test client. Playwright is available for end-to-end browser tests.
 
 ---
-
-## 🔮 Future Improvements
-
-| Area | Improvement |
-|---|---|
-| **Database** | Migrate from SQLite to PostgreSQL for production-grade persistence and concurrency |
-| **API** | Expose a REST API (JSON responses) so the frontend can be decoupled |
-| **Auth** | Add OAuth (Google / GitHub sign-in) via Flask-OAuthlib |
-| **Containers** | Add `Dockerfile` and `docker-compose.yml` for consistent local and cloud environments |
-| **Cloud** | Full deployment guide for AWS / GCP / Azure with persistent volume for SQLite or managed Postgres |
-| **Analytics** | Monthly trend charts using Chart.js or D3.js |
-| **Budget limits** | Per-category monthly budget caps with visual warnings when approaching limits |
-| **Export** | Export expenses to CSV / PDF via `reportlab` (already installed) |
-| **Recurring expenses** | Support for marking expenses as recurring (subscriptions, rent) |
-| **Multi-currency** | Support for currencies beyond INR |
-| **Dark mode** | CSS variable-based theme toggle |
-| **2FA** | TOTP-based two-factor authentication |
-
----
-
-## 📚 Learning Outcomes
+##  Learning Outcomes
 
 Building Spendora from scratch provided hands-on experience with:
 
@@ -463,58 +430,9 @@ Building Spendora from scratch provided hands-on experience with:
 - **Feature-branch Git workflow** — one branch per feature, PR-based merges, clean commit history
 - **Production readiness** — Gunicorn WSGI, environment variable management, deployment configuration
 - **Frontend without a framework** — CSS custom properties, responsive layout, vanilla JS DOM interaction
+  
 
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome.
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Commit your changes: `git commit -m "add: brief description"`
-4. Push to your branch: `git push origin feature/your-feature-name`
-5. Open a Pull Request against `main`
-
-Please ensure:
-- All new routes have authentication guards where applicable
-- All SQL queries use parameterised placeholders (no string formatting)
-- New features include corresponding tests in `tests/`
-- Code follows the existing style (no ORMs, no external auth libraries)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-```
-MIT License
-
-Copyright (c) 2026 Mahi Gupta
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
----
-
-## 👤 Author
+##  Author
 
 **Mahi Gupta**
 
