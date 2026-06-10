@@ -1,7 +1,7 @@
 """
 tests/test_09-delete-expense.py
 
-Pytest test suite for the Spendly "Delete Expense" feature (Step 09).
+Pytest test suite for the Spendora "Delete Expense" feature (Step 09).
 Tests are written against the feature specification only; no implementation
 details are reverse-engineered from the source.
 
@@ -629,12 +629,12 @@ class TestProfileDeleteButton:
         )
 
     def test_profile_page_extends_base_template(self, auth_client):
-        """Profile page must extend base.html — verified by the Spendly brand appearing."""
+        """Profile page must extend base.html — verified by the Spendora brand appearing."""
         c, uid, eid, _ = auth_client
         resp = c.get("/profile")
         body = _body(resp)
-        assert "Spendly" in body, (
-            "Profile page must extend base.html; 'Spendly' brand/title must appear"
+        assert "Spendora" in body, (
+            "Profile page must extend base.html; 'Spendora' brand/title must appear"
         )
 
 

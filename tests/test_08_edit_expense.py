@@ -1,7 +1,7 @@
 """
 tests/test_08_edit_expense.py
 
-Pytest test suite for the Spendly "Edit Expense" feature (Step 08).
+Pytest test suite for the Spendora "Edit Expense" feature (Step 08).
 Tests are written against the feature specification only; no implementation
 details are reverse-engineered from the source.
 
@@ -590,8 +590,8 @@ class TestGetRouteOwnExpense:
     def test_page_extends_base_template(self, auth_client):
         c, uid, eid, _ = auth_client
         body = _body(c.get(f"/expenses/{eid}/edit"))
-        assert "Spendly" in body, (
-            "Page must extend base.html; 'Spendly' brand/title must appear"
+        assert "Spendora" in body, (
+            "Page must extend base.html; 'Spendora' brand/title must appear"
         )
 
 

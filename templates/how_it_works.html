@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works — Spendora{% endblock %}
+
+{% block head %}
+<style>
+.hiw-hero {
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 2rem 3.5rem;
+    text-align: center;
+}
+.hiw-hero-inner {
+    max-width: 640px;
+    margin: 0 auto;
+}
+.hiw-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+.hiw-subtitle {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto;
+}
+.hiw-body {
+    padding: 3.5rem 2rem 5rem;
+}
+.hiw-inner {
+    max-width: 840px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+.hiw-section-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+.hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+.hiw-step {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+.hiw-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--paper-card);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+.hiw-step-title {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+}
+.hiw-step-body {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+}
+.hiw-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+.hiw-tip {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+.hiw-tip-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+    display: block;
+}
+.hiw-tip-title {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+}
+.hiw-tip-body {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+}
+.hiw-security {
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+}
+.hiw-security-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+.hiw-security-body {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+}
+.hiw-cta {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--ink);
+    border-radius: var(--radius-lg);
+}
+.hiw-cta-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--paper-card);
+    margin-bottom: 0.6rem;
+}
+.hiw-cta-body {
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    margin-bottom: 1.5rem;
+}
+.btn-cta-accent {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--paper-card);
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+.btn-cta-accent:hover { opacity: 0.85; }
+
+@media (max-width: 640px) {
+    .hiw-grid { grid-template-columns: 1fr; }
+    .hiw-hero { padding: 3rem 1.25rem 2.5rem; }
+    .hiw-body { padding: 2.5rem 1.25rem 4rem; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="hiw-hero">
+    <div class="hiw-hero-inner">
+        <div class="hero-badge">Getting started</div>
+        <h1 class="hiw-title">How Spendora works</h1>
+        <p class="hiw-subtitle">
+            A quick guide to setting up your account, logging expenses,
+            and reading your dashboard — everything you need to take control of your finances.
+        </p>
+    </div>
+</section>
+
+<div class="hiw-body">
+    <div class="hiw-inner">
+
+        <!-- Introduction -->
+        <section>
+            <h2 class="hiw-section-title">What is Spendora?</h2>
+            <div class="feature-card">
+                <div class="feature-icon">◈</div>
+                <h3 class="feature-title">Your personal expense tracker</h3>
+                <p class="feature-body">
+                    Spendora is a free, privacy-first expense tracker designed for everyday use.
+                    Log your spending, categorise expenses, and instantly see where your money goes —
+                    all without spreadsheets, subscriptions, or setup complexity.
+                    Every rupee you spend gets recorded, categorised, and visualised so you can make
+                    smarter decisions about your money.
+                </p>
+            </div>
+        </section>
+
+        <!-- Registration -->
+        <section>
+            <h2 class="hiw-section-title">Step 1 — Create your account</h2>
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-step-num">1</div>
+                    <div>
+                        <p class="hiw-step-title">Go to the registration page</p>
+                        <p class="hiw-step-body">Click <strong>Create free account</strong> on the homepage or use the <strong>Get started</strong> link in the top navigation bar.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">2</div>
+                    <div>
+                        <p class="hiw-step-title">Enter your details</p>
+                        <p class="hiw-step-body">Provide your full name, a valid email address, and a password with at least 8 characters. No phone number or credit card required.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">3</div>
+                    <div>
+                        <p class="hiw-step-title">Account created instantly</p>
+                        <p class="hiw-step-body">Your account is ready right away. You'll be redirected to sign in, then straight to your personal dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login -->
+        <section>
+            <h2 class="hiw-section-title">Step 2 — Sign in</h2>
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-step-num">1</div>
+                    <div>
+                        <p class="hiw-step-title">Go to the sign in page</p>
+                        <p class="hiw-step-body">Click <strong>Sign in</strong> in the navbar to reach the login form.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">2</div>
+                    <div>
+                        <p class="hiw-step-title">Enter your credentials</p>
+                        <p class="hiw-step-body">Type in the email address and password you registered with. Your session stays secure — you remain signed in until you explicitly sign out.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">3</div>
+                    <div>
+                        <p class="hiw-step-title">Land on your dashboard</p>
+                        <p class="hiw-step-body">Signed-in users are taken to their personal dashboard showing all expenses, summary stats, and spending breakdowns.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Expenses -->
+        <section>
+            <h2 class="hiw-section-title">Step 3 — Add an expense</h2>
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-step-num">1</div>
+                    <div>
+                        <p class="hiw-step-title">Click "Add Expense" in the navbar</p>
+                        <p class="hiw-step-body">The <strong>Add Expense</strong> link is always visible in the navigation bar when you're signed in.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">2</div>
+                    <div>
+                        <p class="hiw-step-title">Fill in the expense details</p>
+                        <p class="hiw-step-body">Enter the amount (in ₹), select a category — Food, Transport, Bills, Health, Entertainment, Shopping, or Other — pick a date, and optionally add a short description.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">3</div>
+                    <div>
+                        <p class="hiw-step-title">Save and view it instantly</p>
+                        <p class="hiw-step-body">Click <strong>Save expense</strong>. You're redirected back to your dashboard where the entry appears immediately and all totals update.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit / Delete -->
+        <section>
+            <h2 class="hiw-section-title">Step 4 — Edit or delete expenses</h2>
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-step-num">1</div>
+                    <div>
+                        <p class="hiw-step-title">Find the expense in your transaction list</p>
+                        <p class="hiw-step-body">Your dashboard shows a full table of recorded expenses — date, description, category badge, and amount on each row.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">2</div>
+                    <div>
+                        <p class="hiw-step-title">Use the Edit or Delete action</p>
+                        <p class="hiw-step-body">Each row has an <strong>Edit</strong> link and a <strong>Delete</strong> button. Edit opens a pre-filled form; delete removes the record permanently.</p>
+                    </div>
+                </div>
+                <div class="hiw-step">
+                    <div class="hiw-step-num">3</div>
+                    <div>
+                        <p class="hiw-step-title">All totals recalculate automatically</p>
+                        <p class="hiw-step-body">After any edit or deletion, your balance, total spent, and category breakdown are updated immediately on the dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Overview -->
+        <section>
+            <h2 class="hiw-section-title">Your dashboard at a glance</h2>
+            <div class="hiw-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">₹</div>
+                    <h3 class="feature-title">Summary stats</h3>
+                    <p class="feature-body">Total spent, current balance, and transaction count — updated in real time as you add or remove expenses.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◎</div>
+                    <h3 class="feature-title">Category breakdown</h3>
+                    <p class="feature-body">A visual bar chart shows how your spending splits across each category, with percentages calculated automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◷</div>
+                    <h3 class="feature-title">Date filters</h3>
+                    <p class="feature-body">Filter by date range using quick presets (This month, Last 3 months, Last 6 months) or enter a custom start and end date.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">Transaction history</h3>
+                    <p class="feature-body">Full list of all expenses in newest-first order, with category badges and descriptions for easy scanning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips -->
+        <section>
+            <h2 class="hiw-section-title">Expense tracking tips</h2>
+            <div class="hiw-grid">
+                <div class="hiw-tip">
+                    <span class="hiw-tip-icon">📅</span>
+                    <p class="hiw-tip-title">Log daily, not weekly</p>
+                    <p class="hiw-tip-body">Add expenses the moment they happen so nothing falls through the cracks. The habit that matters most is speed.</p>
+                </div>
+                <div class="hiw-tip">
+                    <span class="hiw-tip-icon">🏷️</span>
+                    <p class="hiw-tip-title">Use categories consistently</p>
+                    <p class="hiw-tip-body">Pick a category and stick with it for similar expenses. Consistent categorisation makes your breakdown charts meaningful.</p>
+                </div>
+                <div class="hiw-tip">
+                    <span class="hiw-tip-icon">📝</span>
+                    <p class="hiw-tip-title">Add short descriptions</p>
+                    <p class="hiw-tip-body">Two words like "Zomato dinner" or "Auto fare" make your transaction list far easier to scan a month later.</p>
+                </div>
+                <div class="hiw-tip">
+                    <span class="hiw-tip-icon">📊</span>
+                    <p class="hiw-tip-title">Review monthly</p>
+                    <p class="hiw-tip-body">At month-end, use the "This month" filter and check which category surprised you — that's usually where the leaks are.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security & Privacy -->
+        <section>
+            <h2 class="hiw-section-title">Security &amp; privacy</h2>
+            <div class="hiw-security">
+                <p class="hiw-security-title">Your data is safe with Spendora</p>
+                <p class="hiw-security-body">
+                    Your password is never stored in plain text — it is hashed with a modern cryptographic algorithm before
+                    being saved to the database. Your expense data is completely private; no other user can see your records.
+                    Spendora does not sell or share your data with any third parties. Sessions are protected with server-side
+                    tokens, and every sensitive form submission is guarded against cross-site request forgery (CSRF).
+                    Your financial data stays on the server you trust — not distributed across third-party clouds.
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="hiw-cta">
+            <p class="hiw-cta-title">Ready to start tracking?</p>
+            <p class="hiw-cta-body">Create your free account in seconds — no credit card needed.</p>
+            <a href="{{ url_for('register') }}" class="btn-cta-accent">Create free account</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

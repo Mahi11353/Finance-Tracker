@@ -53,7 +53,7 @@ def seed_db():
 
     cursor = conn.execute(
         "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
-        ("Demo User", "demo@spendly.com", generate_password_hash("demo123")),
+        ("Demo User", "demo@spendora.com", generate_password_hash("demo123")),
     )
     user_id = cursor.lastrowid
 

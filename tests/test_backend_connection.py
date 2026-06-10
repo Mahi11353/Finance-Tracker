@@ -204,7 +204,7 @@ def test_profile_unauthenticated_redirects(client):
 
 def test_profile_authenticated_returns_200(client):
     c, db_path = client
-    uid = _insert_user(db_path, name="Demo User", email="demo@spendly.com")
+    uid = _insert_user(db_path, name="Demo User", email="demo@spendora.com")
     _insert_expenses(db_path, uid)
     with c.session_transaction() as sess:
         sess["user_id"] = uid
@@ -212,6 +212,6 @@ def test_profile_authenticated_returns_200(client):
     assert resp.status_code == 200
     body = resp.data.decode()
     assert "Demo User" in body
-    assert "demo@spendly.com" in body
+    assert "demo@spendora.com" in body
     assert "₹" in body
     assert "Bills" in body

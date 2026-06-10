@@ -1,7 +1,7 @@
 """
 tests/test_06_date_filter_profile.py
 
-Pytest test suite for the Spendly date-filter feature on the /profile route.
+Pytest test suite for the Spendora date-filter feature on the /profile route.
 Tests are written against the feature specification only; no implementation
 details are reverse-engineered from the source.
 
@@ -745,4 +745,4 @@ class TestTemplateStructure:
         c, uid, _ = auth_client
         resp = c.get("/profile")
         body = _body(resp)
-        assert "Spendly" in body, "Page title or brand name 'Spendly' must appear on the profile page"
+        assert "Spendora" in body, "Page title or brand name 'Spendora' must appear on the profile page"

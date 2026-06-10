@@ -1,7 +1,7 @@
 # Spec: Login and Logout
 
 ## Overview
-Implement session-based authentication for Spendly. This step converts the existing `/login` stub into a working POST handler that validates credentials against the database using `check_password_hash`, stores the authenticated user's ID in Flask's `session`, and redirects on success. It also implements the `/logout` stub to clear the session and redirect to the landing page. After this step, the app can distinguish between anonymous and authenticated visitors — a prerequisite for all protected routes in later steps.
+Implement session-based authentication for Spendora. This step converts the existing `/login` stub into a working POST handler that validates credentials against the database using `check_password_hash`, stores the authenticated user's ID in Flask's `session`, and redirects on success. It also implements the `/logout` stub to clear the session and redirect to the landing page. After this step, the app can distinguish between anonymous and authenticated visitors — a prerequisite for all protected routes in later steps.
 
 ## Depends on
 - Step 01 — Database Setup (`get_db()`, `users` table, and `get_user_by_email()` must exist)
@@ -53,5 +53,5 @@ No new dependencies. `werkzeug.security.check_password_hash` is already installe
 - [ ] Visiting `GET /logout` clears the session and redirects to `/`
 - [ ] After logout, `session['user_id']` is no longer present
 - [ ] The navigation in `base.html` shows **Logout** when logged in and **Login** / **Register** when logged out
-- [ ] The demo user (`demo@spendly.com` / `demo123`) can log in successfully
+- [ ] The demo user (`demo@spendora.com` / `demo123`) can log in successfully
 - [ ] No plain-text passwords are stored or logged anywhere

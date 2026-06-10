@@ -2,7 +2,7 @@
 
 Replace the stub in `database/db.py` with a working SQLite implementation.
 
-This step establishes the **data layer foundation** for the Spendly application.
+This step establishes the **data layer foundation** for the Spendora application.
 
 All future features (authentication, profile, expense tracking) depend on this being correctly implemented.
 
@@ -79,7 +79,7 @@ Nothing — this is the first step.
     - If yes → return early (no duplication)
 - Inserts one demo user:
     - name: Demo User
-    - email: demo@spendly.com
+    - email: demo@spendora.com
     - password: demo123 (hashed using `werkzeug`)
 - Inserts **8 sample expenses**:
     - All linked to demo user

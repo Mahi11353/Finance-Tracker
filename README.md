@@ -1,4 +1,4 @@
-# ◈ Spendly — Personal Expense Tracker
+# ◈ Spendora — Personal Expense Tracker
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?style=flat-square&logo=python)
 ![Flask](https://img.shields.io/badge/Flask-3.1.3-black?style=flat-square&logo=flask)
@@ -9,7 +9,7 @@
 
 > **Track every rupee. Own your finances.**
 
-Spendly is a full-stack personal finance web application built with Flask and SQLite. It lets users register, log in, add and manage expenses across categories, track their account balance, and analyse spending patterns through a clean dashboard — all without touching a spreadsheet.
+Spendora is a full-stack personal finance web application built with Flask and SQLite. It lets users register, log in, add and manage expenses across categories, track their account balance, and analyse spending patterns through a clean dashboard — all without touching a spreadsheet.
 
 This project was built incrementally using a spec-driven, AI-assisted workflow with Claude Code, following feature-branch development practices throughout.
 
@@ -171,7 +171,7 @@ python app.py
 
 Open your browser at **http://127.0.0.1:5001**
 
-> The database is created and seeded automatically on the first run. A demo account (`demo@spendly.com` / `demo123`) is available immediately.
+> The database is created and seeded automatically on the first run. A demo account (`demo@spendora.com` / `demo123`) is available immediately.
 
 ---
 
@@ -207,7 +207,7 @@ pip list | grep Flask   # should show Flask 3.1.3
 
 ## 🗄️ Database Setup
 
-Spendly uses **SQLite** — a file-based, serverless database. No external database server is needed.
+Spendora uses **SQLite** — a file-based, serverless database. No external database server is needed.
 
 ### How it works
 
@@ -341,7 +341,7 @@ Each feature branch corresponds to one spec file in `.claude/specs/`. The branch
 
 ## 🤖 Claude AI Workflow
 
-Spendly was built using **Claude Code** as the primary development assistant, following a spec-driven, agentic workflow.
+Spendora was built using **Claude Code** as the primary development assistant, following a spec-driven, agentic workflow.
 
 ### How it worked
 
@@ -452,7 +452,7 @@ Tests use `pytest-flask` for route testing and a dedicated in-memory test client
 
 ## 📚 Learning Outcomes
 
-Building Spendly from scratch provided hands-on experience with:
+Building Spendora from scratch provided hands-on experience with:
 
 - **Flask fundamentals** — routing, templates, sessions, flash messages, request handling
 - **Database design** — relational schema design, foreign keys, parameterised queries, SQLite pragmas
@@ -524,7 +524,7 @@ SOFTWARE.
 ---
 
 <div align="center">
-  <strong>◈ Spendly</strong> — Built with Flask, SQLite, and Claude Code
+  <strong>◈ Spendora</strong> — Built with Flask, SQLite, and Claude Code
   <br>
   <em>Track every rupee. Own your finances.</em>
 </div>

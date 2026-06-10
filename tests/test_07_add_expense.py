@@ -1,7 +1,7 @@
 """
 tests/test_07_add_expense.py
 
-Pytest test suite for the Spendly "Add Expense" feature (Step 07).
+Pytest test suite for the Spendora "Add Expense" feature (Step 07).
 Tests are written against the feature specification only; no implementation
 details are reverse-engineered from the source.
 
@@ -378,12 +378,12 @@ class TestGetRoute:
         assert 'name="description"' in body, "Form must include a description input field"
 
     def test_page_extends_base_template(self, auth_client):
-        """The page should include nav/structure from base.html (e.g. Spendly brand)."""
+        """The page should include nav/structure from base.html (e.g. Spendora brand)."""
         c, uid, _ = auth_client
         resp = c.get("/expenses/add")
         body = _body(resp)
-        assert "Spendly" in body, (
-            "Page must extend base.html; 'Spendly' brand/title must appear"
+        assert "Spendora" in body, (
+            "Page must extend base.html; 'Spendora' brand/title must appear"
         )
 
 
